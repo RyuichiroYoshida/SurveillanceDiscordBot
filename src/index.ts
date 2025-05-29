@@ -37,11 +37,12 @@ async function main() {
 		await fetcher.saveToText(todayMessages, `${saveDir}/discord_today_messages.txt`);
 		console.log(`今日のメッセージ数: ${todayMessages.length}`);
 
-		const yesterday = new Date();
-		yesterday.setDate(yesterday.getDate() - 1);
-		const yesterdayMessages = await fetcher.fetchMessagesByDate(CHANNEL_ID, yesterday);
-		await fetcher.saveToJSON(yesterdayMessages, `${saveDir}/discord_yesterday_messages.json`);
-		console.log(`昨日のメッセージ数: ${yesterdayMessages.length}`);
+        // 以下のコードはコメントアウトされていますが、必要に応じて有効化できます
+		// const yesterday = new Date();
+		// yesterday.setDate(yesterday.getDate() - 1);
+		// const yesterdayMessages = await fetcher.fetchMessagesByDate(CHANNEL_ID, yesterday);
+		// await fetcher.saveToJSON(yesterdayMessages, `${saveDir}/discord_yesterday_messages.json`);
+		// console.log(`昨日のメッセージ数: ${yesterdayMessages.length}`);
 	} catch (error) {
 		console.error("エラーが発生しました:", error);
 	}

@@ -73,7 +73,7 @@ export class DiscordChatFetcher {
 		const todayMessages: Message[] = [];
 		let lastMessageId: string | undefined;
 		const today = new Date();
-		today.setHours(4, 0, 0, 0);
+		today.setHours(0, 0, 0, 0);
 		const todayTimestamp = today.getTime();
 
 		while (true) {
