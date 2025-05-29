@@ -1,0 +1,28 @@
+{
+  "name": "surveillancediscordbot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RyuichiroYoshida/SurveillanceDiscordBot.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RyuichiroYoshida/SurveillanceDiscordBot/issues"
+  },
+  "homepage": "https://github.com/RyuichiroYoshida/SurveillanceDiscordBot#readme",
+  "dependencies": {
+    "discord.js": "^14.19.3",
+    "node": "^22.16.0",
+    "nvm": "^0.0.4"
+  },
+  "devDependencies": {
+    "typescript": "^5.8.3"
+  }
+}
