@@ -16,7 +16,7 @@ print(f"✅ JSONファイル一覧: {json_files}")
 
 llm = Llama(
     model_path="./llama.cpp/models/DataPilot-ArrowPro-7B-KUJIRA-Q8_0.gguf",
-    n_ctx=2048,
+    n_ctx=10000,
     n_batch=512
 )
 
