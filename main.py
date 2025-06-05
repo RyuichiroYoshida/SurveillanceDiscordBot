@@ -22,6 +22,10 @@ for json_path in json_files:
     with open(json_path, "r", encoding="utf-8") as f:
         messages = json.load(f)
 
+    if not messages:
+        print(f"⚠️ {file_name} は空のためスキップします")
+        continue
+
     # 会話部分だけ抽出・整形
     lines = [f"{msg['author']}: {msg['content']}" for msg in messages]
     conversation = "\n".join(lines)
