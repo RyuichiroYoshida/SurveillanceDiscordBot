@@ -1,5 +1,11 @@
 certifi==2025.4.26
 charset-normalizer==3.4.2
+diskcache==5.6.3
 idna==3.10
+Jinja2==3.1.6
+llama_cpp_python==0.3.9
+MarkupSafe==3.0.2
+numpy==2.2.6
 requests==2.32.3
+typing_extensions==4.14.0
 urllib3==2.4.0
