@@ -41,6 +41,20 @@ export class DiscordChatFetcher {
 		this.rest = new REST({ version: "10" }).setToken(token);
 	}
 
+	async fetchChannelName(channelId: string): Promise<string> {
+		try {
+			const channel: any = await this.rest.get(Routes.channel(channelId));
+			if ("name" in channel) {
+				return channel.name;
+			} else {
+				throw new Error("チャンネル名の取得に失敗しました");
+			}
+		} catch (error) {
+			console.error("チャンネル名の取得に失敗しました:", error);
+			throw error;
+		}
+	}
+
 	async fetchMessages(channelId: string, limit: number = 100, before?: string): Promise<Message[]> {
 		try {
 			const params = new URLSearchParams();
