@@ -4,7 +4,7 @@ import fs from "node:fs/promises";
 
 async function main() {
 	const BOT_TOKEN = TOKEN;
-	const CHANNEL_ID = ID;
+	const CHANNEL_IDs = ID;
 
 	const fetcher = new DiscordChatFetcher(BOT_TOKEN);
 	if (fetcher) {
@@ -15,8 +15,8 @@ async function main() {
 	}
 
 	try {
-		console.log("メッセージを取得中...");
-		const recentMessages = await fetcher.fetchMessages(CHANNEL_ID, 100);
+		// console.log("メッセージを取得中...");
+		// const recentMessages = await fetcher.fetchMessages(CHANNEL_ID, 100);
 
 		const now = new Date().toLocaleString("ja-JP");
 		const saveDir = `./reports/${now.replace(/[:/]/g, "-")}`;
@@ -28,16 +28,21 @@ async function main() {
 			return;
 		}
 
-		await fetcher.saveToJSON(recentMessages, `${saveDir}/discord_chat_log.json`);
-		await fetcher.saveToText(recentMessages, `${saveDir}/discord_chat_log.txt`);
+		// await fetcher.saveToJSON(recentMessages, `${saveDir}/discord_chat_log.json`);
+		// await fetcher.saveToText(recentMessages, `${saveDir}/discord_chat_log.txt`);
 
 		console.log("今日のメッセージを取得中...");
-		const todayMessages = await fetcher.fetchTodayMessages(CHANNEL_ID);
-		await fetcher.saveToJSON(todayMessages, `${saveDir}/discord_today_messages.json`);
-		await fetcher.saveToText(todayMessages, `${saveDir}/discord_today_messages.txt`);
-		console.log(`今日のメッセージ数: ${todayMessages.length}`);
+		for (const channelId of CHANNEL_IDs) {
+			console.log(`チャンネルID: ${channelId}`);
+			const todayMessages = await fetcher.fetchTodayMessages(channelId);
+			const channelName = await fetcher.fetchChannelName(channelId);
 
-        // 以下のコードはコメントアウトされていますが、必要に応じて有効化できます
+			await fetcher.saveToJSON(todayMessages, `${saveDir}/${channelName}.json`);
+			// await fetcher.saveToText(todayMessages, `${saveDir}/discord_today_messages_${channelId}.txt`);
+			console.log(`今日のメッセージ数 (${channelName}): ${todayMessages.length}`);
+		}
+
+		// 以下のコードはコメントアウトされていますが、必要に応じて有効化できます
 		// const yesterday = new Date();
 		// yesterday.setDate(yesterday.getDate() - 1);
 		// const yesterdayMessages = await fetcher.fetchMessagesByDate(CHANNEL_ID, yesterday);
