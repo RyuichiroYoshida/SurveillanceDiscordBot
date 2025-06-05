@@ -137,3 +137,6 @@ dist
 
 # config files
 src/config.ts
+
+# report files
+reports
