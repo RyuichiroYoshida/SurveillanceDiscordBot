@@ -24,8 +24,7 @@ llm = Llama(
 load_dotenv()
 WEBHOOK_URL = os.getenv("DISCORD_WEBHOOK_URL")
 if not WEBHOOK_URL:
-    print("⚠️ 環境変数 DISCORD_WEBHOOK_URL が設定されていません")
-    continue
+    raise Exception("⚠️ 環境変数 DISCORD_WEBHOOK_URL が設定されていません")
 
 for json_path in json_files:
     file_name = os.path.splitext(os.path.basename(json_path))[0]
