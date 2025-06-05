@@ -37,7 +37,7 @@ with open("prompt.txt", "w", encoding="utf-8") as f:
     f.write(prompt)
 
 print("✅ プロンプトを prompt.txt に保存しました")
-llm = Llama(model_path=".\\llama.cpp\\models\\DataPilot-ArrowPro-7B-KUJIRA-Q8_0.gguf", n_batch=512)
+llm = Llama(model_path=".\\llama.cpp\\models\\DataPilot-ArrowPro-7B-KUJIRA-Q8_0.gguf", n_ctx=2048, n_batch=512)
 
-output = llm(prompt)
-print(json.dumps(output, ensure_ascii=False, indent=2))
+output = llm(prompt, max_tokens=500, stream=False)
+print(output["choices"][0]["text"])
