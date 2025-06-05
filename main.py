@@ -20,6 +20,13 @@ llm = Llama(
     n_batch=512
 )
 
+# python-dotenvを使って.envファイルから環境変数を読み込む
+load_dotenv()
+WEBHOOK_URL = os.getenv("DISCORD_WEBHOOK_URL")
+if not WEBHOOK_URL:
+    print("⚠️ 環境変数 DISCORD_WEBHOOK_URL が設定されていません")
+    continue
+
 for json_path in json_files:
     file_name = os.path.splitext(os.path.basename(json_path))[0]
     print(f"✅ 処理中のファイル: {file_name}")
@@ -29,6 +36,14 @@ for json_path in json_files:
 
     if not messages:
         print(f"⚠️ {file_name} は空のためスキップします")
+        data = {
+            "content": f"**{file_name} チャンネルは過去一日間にメッセージがありませんでした。**\n要約はありません。"
+        }
+        response = requests.post(WEBHOOK_URL, json=data)
+        if response.status_code == 204:
+            print(f"✅ {file_name} の要約をDiscordに送信しました")
+        else:
+            print(f"⚠️ Discord送信失敗: {response.status_code} {response.text}")
         continue
 
     # 会話部分だけ抽出・整形
@@ -48,13 +63,6 @@ for json_path in json_files:
     print(f"--- {file_name} チャンネル の要約 ---")
     print(text)
     print("------------------------")
-
-    # python-dotenvを使って.envファイルから環境変数を読み込む
-    load_dotenv()
-    WEBHOOK_URL = os.getenv("DISCORD_WEBHOOK_URL")
-    if not WEBHOOK_URL:
-        print("⚠️ 環境変数 DISCORD_WEBHOOK_URL が設定されていません")
-        continue
 
     # 要約結果をDiscordに送信
     data = {
