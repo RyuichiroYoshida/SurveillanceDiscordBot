@@ -45,7 +45,7 @@ for json_path in json_files:
 
     output = llm(prompt, max_tokens=250, stream=False)
     text = output["choices"][0]["text"]
-    print(f"--- {file_name} の要約 ---")
+    print(f"--- {file_name} チャンネル の要約 ---")
     print(text)
     print("------------------------")
 
@@ -58,7 +58,7 @@ for json_path in json_files:
 
     # 要約結果をDiscordに送信
     data = {
-        "content": f"**{file_name} の要約**\n{text}"
+        "content": f"**{file_name} チャンネル の要約**\n{text}"
     }
     response = requests.post(WEBHOOK_URL, json=data)
     if response.status_code == 204:
